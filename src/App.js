@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
+import Home from './components/Home';
 
 import homeIcon from '../src/media/home.png';
 import homeIcon0 from '../src/media/home0.png';
 import cartIcon from '../src/media/cart.png';
 import cartIcon0 from '../src/media/cart0.png';
-import searchIcon from '../src/media/search.png';
-import searchIcon0 from '../src/media/search0.png';
-import contactIcon from '../src/media/contact.png';
-import contactIcon0 from '../src/media/contact0.png';
-
 
 export default class App extends Component {
     constructor(props) {
@@ -49,12 +45,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     iconStyle: { height: 30, width: 30 }
 });
-
-const Home = () => (
-    <View style={{ flex: 1, backgroundColor: '#7697B1' }}>
-        <Text>Home Component</Text>
-    </View>
-);
 
 const Cart = () => (
     <View style={{ flex: 1, backgroundColor: '#7697B1' }}>

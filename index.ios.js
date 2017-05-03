@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import App from './src/App';
+import List from './src/components/List';
 
 export default class ListDemo extends Component {
   render() {
-    return <App />;
+    return <List />;
   }
 }
 
