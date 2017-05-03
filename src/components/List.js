@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, ListView, Text, StatusBar } from 'react-native';
+import { View, ListView, StatusBar } from 'react-native';
+import Note from './Note';
 
 StatusBar.setHidden(true);
 
@@ -14,12 +15,7 @@ export default class List extends Component {
             <View style={{ flex: 1, backgroundColor: '#CCE1F6' }}>
                 <ListView 
                     dataSource={this.state.notes}
-                    renderRow={notes => (
-                        <View>
-                            <Text style={{ color: '#952424' }}>{notes.subject}</Text>
-                            <Text style={{ color: '#80A4DA' }}>{notes.content}</Text>
-                        </View>
-                    )}
+                    renderRow={note => <Note note={note} />}
                 />
             </View>
         );
