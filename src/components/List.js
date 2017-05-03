@@ -11,22 +11,38 @@ export default class List extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.state = { notes: ds.cloneWithRows(arrNote) };
+        this.state = { 
+            notes: ds.cloneWithRows(arrNote),
+            subject: '',
+            content: '' 
+        };
     }
+
+    addNote() {
+        const { content, subject, notes } = this.state;
+        const note = new NoteModel(subject, content);
+        arrNote.push(note);
+        this.setState({ notes: notes.cloneWithRows(arrNote) });
+    }
+
     render() {
-        const { input } = styles;
+        const { input, button } = styles;
         return (
             <View style={{ flex: 1, backgroundColor: '#CCE1F6' }}>
                 <View>
                     <TextInput 
                         style={input}
                         placeholder="Nhập chủ đề"
+                        value={this.state.subject}
+                        onChangeText={text => this.setState({ subject: text })}
                     />
                     <TextInput 
                         style={input}
                         placeholder="Nhập nội dung"
+                        value={this.state.content}
+                        onChangeText={text => this.setState({ content: text })}
                     />
-                    <TouchableOpacity style={{ backgroundColor: '#DFF5C9', padding: 10, margin: 10, alignItems: 'center' }}>
+                    <TouchableOpacity style={button} onPress={this.addNote.bind(this)}>
                         <Text style={{ color: '#3D6FC4', fontSize: 20 }}>Thêm</Text>
                     </TouchableOpacity>
                 </View>
@@ -46,7 +62,9 @@ const styles = StyleSheet.create({
         margin: 10,
         paddingHorizontal: 10
     },
-    
+    button: {
+        backgroundColor: '#DFF5C9', padding: 10, margin: 10, alignItems: 'center'
+    }
 });
 
 class NoteModel {
