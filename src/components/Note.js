@@ -8,7 +8,7 @@ export default class Note extends Component {
             <View style={{ margin: 10 }}>
                 <Text style={{ color: '#952424', fontSize: 20 }}>{note.subject}</Text>
                 <Text style={{ color: '#80A4DA', fontSize: 25 }}>{note.content}</Text>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.remove(note.id)}>
                     <Text style={{ color: '#fff', fontSize: 20 }}>Xoá</Text>
                 </TouchableOpacity>
             </View>

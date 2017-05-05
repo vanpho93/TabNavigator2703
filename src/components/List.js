@@ -12,12 +12,18 @@ let i = 4;
 export default class List extends Component {
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
         this.state = { 
-            notes: ds.cloneWithRows(arrNote),
+            notes: ds,
             subject: '',
             content: '' 
         };
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:3000/data')
+        .then(res => res.json())
+        .then(resJSON => this.setState({ notes: this.state.notes.cloneWithRows(resJSON) }));
     }
 
     addNote() {
@@ -27,8 +33,12 @@ export default class List extends Component {
         this.setState({ notes: notes.cloneWithRows(arrNote) });
     }
 
-    removeNote() {
-
+    removeNote(id) {
+        const index = arrNote.findIndex(e => e.id === id);
+        arrNote.splice(index, 1);
+        this.setState({ 
+            notes: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id }).cloneWithRows(arrNote) 
+        });
     }
 
     render() {
@@ -53,8 +63,9 @@ export default class List extends Component {
                     </TouchableOpacity>
                 </View>
                 <ListView 
+                    enableEmptySections
                     dataSource={this.state.notes}
-                    renderRow={note => <Note note={note} />}
+                    renderRow={note => <Note note={note} remove={this.removeNote.bind(this)} />}
                 />
             </View>
         );
@@ -72,16 +83,3 @@ const styles = StyleSheet.create({
         backgroundColor: '#DFF5C9', padding: 10, margin: 10, alignItems: 'center'
     }
 });
-
-class NoteModel {
-    constructor(id, subject, content) {
-        this.subject = subject;
-        this.content = content;
-    }
-}
-
-const arrNote = [
-    new NoteModel(1, 'Hoc Tap', 'Lam do an React Native'),
-    new NoteModel(2, 'Cong viec', 'Lam bao cao cuoi thang'),
-    new NoteModel(3, 'Vui choi', 'Di du lich le 1/5')
-];
