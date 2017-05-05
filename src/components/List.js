@@ -7,6 +7,8 @@ import Note from './Note';
 
 StatusBar.setHidden(true);
 
+let i = 4;
+
 export default class List extends Component {
     constructor(props) {
         super(props);
@@ -20,9 +22,13 @@ export default class List extends Component {
 
     addNote() {
         const { content, subject, notes } = this.state;
-        const note = new NoteModel(subject, content);
+        const note = new NoteModel(i++, subject, content);
         arrNote.push(note);
         this.setState({ notes: notes.cloneWithRows(arrNote) });
+    }
+
+    removeNote() {
+
     }
 
     render() {
@@ -68,14 +74,14 @@ const styles = StyleSheet.create({
 });
 
 class NoteModel {
-    constructor(subject, content) {
+    constructor(id, subject, content) {
         this.subject = subject;
         this.content = content;
     }
 }
 
 const arrNote = [
-    new NoteModel('Hoc Tap', 'Lam do an React Native'),
-    new NoteModel('Cong viec', 'Lam bao cao cuoi thang'),
-    new NoteModel('Vui choi', 'Di du lich le 1/5')
+    new NoteModel(1, 'Hoc Tap', 'Lam do an React Native'),
+    new NoteModel(2, 'Cong viec', 'Lam bao cao cuoi thang'),
+    new NoteModel(3, 'Vui choi', 'Di du lich le 1/5')
 ];
